@@ -1,0 +1,118 @@
+.doctor-card {
+    margin-bottom: 20px;
+    height: 347px;
+}
+
+.card-top-container {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-top-container img {
+    width: 220.72px;
+    height: 166px;
+    align-items: center;
+}
+
+.card-bottom-container {
+    padding: 0px 20px 5px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-bottom-container h6 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.card-bottom-container p {
+    font-size: 14px;
+    color: #585858;
+    line-height: 16px;
+    margin-bottom: 38px;
+    font-style: italic;
+}
+
+.card-bottom-container button {
+    background-color: #00285F;
+    border-radius: 5px;
+    width: 174px;
+    height: 40px;
+    font-size: 14px;
+    color: #FFFFFF;
+    border: none;
+    width: 257.93px;
+}
+
+
+@media(min-width: 576px) {
+
+    .doctor-card {
+        margin-bottom: 30px;
+        height: 347px;
+    }
+
+    .card-bottom-container button {
+        background-color: #00285F;
+        border-radius: 5px;
+        width: 174px;
+        height: 40px;
+        font-size: 14px;
+        color: #FFFFFF;
+        border: none;
+        width: 220px;
+    }
+    
+    .card-bottom-container button {
+        width: 220px;
+    }
+
+    .card-bottom-container p {
+        font-size: 12px;
+        color: #585858;
+        line-height: 16px;
+        margin-bottom: 38px;
+        font-style: italic;
+    }
+}
+
+@media(min-width: 768px) {
+
+    .card-bottom-container button {
+        width: 307px;
+    }
+
+    .card-bottom-container p {
+        font-size: 14px;
+        font-style: italic;
+    }
+}
+
+@media(min-width: 992px) {
+
+    .row {
+        margin: 0px -10px 0px -10px;
+    }
+
+    .card-bottom-container button {
+        width: 257.31px;
+    }
+
+    .card-bottom-container p {
+        font-size: 14px;
+        font-style: italic;
+    }
+}
+
+
+@media(min-width: 1280px) {
+
+    .row {
+        margin: 0px 69px 0px 69px;
+    }
+}

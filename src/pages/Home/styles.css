@@ -1,0 +1,15 @@
+.home-container {
+    padding: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.home-container a {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-button {
+    color: #fff;
+}
