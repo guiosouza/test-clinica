@@ -14,7 +14,7 @@ const Home = () => {
             </Link>
             <Link to="/patientsearch">
                 <PatientCard/>
-                <button className="btn btn-primary btn-lg start-button">Cadastro de clientes</button>
+                <button className="btn btn-primary btn-lg start-button">Cadastro de pacientes</button>
             </Link>
             <Link to="/consultationsearch">
                 <ConsultationCard/>

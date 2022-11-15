@@ -1,33 +1,40 @@
 import './styles.css';
 
 import ResultCard from 'components/ResultCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Doctor } from 'types/doctor';
+import { BASE_URL } from 'util/resquests';
+import { useParams } from 'react-router-dom';
 
-type objGit = {
-  login: string;
-  id: number;
+type UrlParams = {
+  doctorCRM: string
 }
 
-type DoctorData = {
-  login: string,
-  node_id: string
+const doctor = {
+  name: "João",
+  skill: "Ortopedia",
+  crm: "3344",
+  phone: "9999-9999",
+  address: "Rua do Pombo"
 }
 
 const DoctorForm = () => {
 
-  const [doctorData, setDoctorData] = useState<DoctorData>();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('mudou')
-  }
+  const { doctorCRM } = useParams<UrlParams>();
 
-  const handleSave = () => {
+  //const [doctor, setDoctor] = useState<Doctor>();
 
-  }
-
-  const handleDelete = () => {
-
-  }
+  // const getDoctors = () => {
+  //   // argumentos: Função, lista de objetos que quero observar
+  //   useEffect(() => {
+  //     axios.get(`${BASE_URL}/doctors/${CRM}`)
+  //       .then(response => {
+  //         setDoctor = (response.data);
+  //       });
+  //   }, [CRM]);// Se atualizar eu vou chamar a requisisão e mudar o produto
+  // }
 
   return (
     <div className="doctor-search-container">
@@ -37,26 +44,22 @@ const DoctorForm = () => {
           <div className="form-container">
             <input
               type="text"
+              className="search-input"
+              placeholder="CRM (somente números)"
+              id=""
+            />
+            <input
+              type="text"
               name="login"
-              value={doctorData.login}
               className="search-input"
               placeholder="Nome"
-              id=""
             />
             <input
               type="text"
               name="id"
-              value={doctorData.id}
               className="search-input"
               placeholder="Especialidade"
               id=""
-            />
-            <input
-              type="text"
-              className="search-input"
-              placeholder="CRM (somente números)"
-              id=""
-              onChange={handleChange}
             />
             <input
               type="text"
@@ -85,12 +88,11 @@ const DoctorForm = () => {
         </form>
 
         <h2>Dados do Médico</h2>
-        { doctorData &&
-        <>
-        <ResultCard title="Dados do Médico" description={doctorData.login} />
-        <ResultCard title="Dados do Médico" description={doctorData.node_id} />
-        </>
-        }
+        {doctor && <ResultCard title="Nome: " description={doctor?.name} />}
+        {doctor && <ResultCard title="Especialidade: " description={doctor?.skill} />}
+        {doctor && <ResultCard title="CRM: " description={doctor?.crm} />}
+        {doctor && <ResultCard title="Telefone: " description={doctor?.phone} />}
+        {doctor && <ResultCard title="Endereço: " description={doctor?.address} />}
       </div>
     </div>
   );
