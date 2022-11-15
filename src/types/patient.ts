@@ -2,8 +2,8 @@
 
 export type Patient = {
     name: string,
-    BirthdayDate: Date,
-    CPF: number,
+    BirthdayDate: string,
+    CPF: string,
     phone: string,
     address: string
 }

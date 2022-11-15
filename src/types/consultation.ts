@@ -4,5 +4,5 @@ import { Patient } from "./patient"
 export type Consultation = {
     name: Patient[],
     doctor: Doctor[],
-    date: Date
+    date: string
 }

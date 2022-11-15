@@ -7,34 +7,30 @@ import { Doctor } from 'types/doctor';
 import { BASE_URL } from 'util/resquests';
 import { useParams } from 'react-router-dom';
 
-type UrlParams = {
-  doctorCRM: string
-}
-
-const doctor = {
-  name: "João",
-  skill: "Ortopedia",
-  crm: "3344",
-  phone: "9999-9999",
-  address: "Rua do Pombo"
+type FormData = {
+  crm: string,
+  name: string,
+  skill: string,
+  phone: string,
+  address: string
 }
 
 const DoctorForm = () => {
 
+  // objet, função que altera o objeto
+  const [formData, setFormData] = useState<FormData>({
+    crm: "",
+    name: "",
+    skill: "",
+    phone: "",
+    address: ""
+  });
 
-  const { doctorCRM } = useParams<UrlParams>();
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    console.log("hi")
+  }
 
-  //const [doctor, setDoctor] = useState<Doctor>();
-
-  // const getDoctors = () => {
-  //   // argumentos: Função, lista de objetos que quero observar
-  //   useEffect(() => {
-  //     axios.get(`${BASE_URL}/doctors/${CRM}`)
-  //       .then(response => {
-  //         setDoctor = (response.data);
-  //       });
-  //   }, [CRM]);// Se atualizar eu vou chamar a requisisão e mudar o produto
-  // }
 
   return (
     <div className="doctor-search-container">
@@ -44,43 +40,45 @@ const DoctorForm = () => {
           <div className="form-container">
             <input
               type="text"
+              name="crm"
               className="search-input"
               placeholder="CRM (somente números)"
-              id=""
             />
             <input
               type="text"
-              name="login"
+              name="name"
               className="search-input"
               placeholder="Nome"
             />
             <input
               type="text"
-              name="id"
+              name="skill"
               className="search-input"
               placeholder="Especialidade"
               id=""
             />
             <input
               type="text"
+              name="phone"
               className="search-input"
               placeholder="Telefone (Somente números)"
               id=""
             />
             <input
               type="text"
+              name="address"
               className="search-input"
               placeholder="Endereço "
               id=""
             />
             <div className="btn-container">
-              <button type="submit" className="btn btn-primary search-button">
+              <button onClick={handleClick} id="btnRead" className="btn btn-primary search-button">
                 Buscar
               </button>
-              <button type="submit" className="btn btn-primary search-button">
+              <button type="submit" id="btnUpdate" className="btn btn-primary search-button">
                 Salvar alterações
               </button>
-              <button type="submit" className="btn btn-primary search-button">
+              <button type="submit" id="btnDelete" className="btn btn-primary search-button">
                 Deletar
               </button>
             </div>
@@ -88,11 +86,13 @@ const DoctorForm = () => {
         </form>
 
         <h2>Dados do Médico</h2>
-        {doctor && <ResultCard title="Nome: " description={doctor?.name} />}
-        {doctor && <ResultCard title="Especialidade: " description={doctor?.skill} />}
-        {doctor && <ResultCard title="CRM: " description={doctor?.crm} />}
-        {doctor && <ResultCard title="Telefone: " description={doctor?.phone} />}
-        {doctor && <ResultCard title="Endereço: " description={doctor?.address} />}
+        {<>
+          <ResultCard title="CRM: " description="" />
+          <ResultCard title="Nome: " description="" />
+          <ResultCard title="Especilidade: " description="" />
+          <ResultCard title="Telefone: " description="" />
+          <ResultCard title="Endereço: " description="" />
+        </>}
       </div>
     </div>
   );
