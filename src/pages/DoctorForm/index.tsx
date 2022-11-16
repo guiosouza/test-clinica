@@ -41,6 +41,7 @@ const DoctorForm = () => {
 
   const { crm } = useParams<UrlParams>();
 
+  // READ
   const handleRead = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(formData)
@@ -48,12 +49,13 @@ const DoctorForm = () => {
     axios.get(`https://my-json-server.typicode.com/guiosouza/fake-api-teste/doctors/${formData.crm}`)
       .then((response) => {
         setDoctor(response.data);
+        setFormData(response.data)
         console.log(response.data)
       })
       .catch((error) => {
         setDoctor(undefined);
       });
-  }
+  }  
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
