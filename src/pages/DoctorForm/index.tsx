@@ -152,7 +152,7 @@ const DoctorForm = () => {
               id=""
             />
             <div className="btn-container">
-              <button onClick={handleCreate} type="submit" id="btnUpdate" className="btn btn-primary form-button">
+              <button  onClick={handleCreate} type="submit" id="btnUpdate" className="btn btn-primary form-button">
                 Criar
               </button>
               <button onClick={handleUpdate} type="submit" id="btnDelete" className="btn btn-primary form-button">
