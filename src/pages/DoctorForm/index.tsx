@@ -23,14 +23,15 @@ type Doctor = {
 }
 
 type UrlParams = {
-  crm : string;
+  crm: string;
 }
 
 const DoctorForm = () => {
 
+  // função que recebe um novo objeto e depois altera
   const [doctor, setDoctor] = useState<Doctor>();
 
-  // objet, função que altera o objeto
+  // objeto começa nulo, função que altera o estado do objeto
   const [formData, setFormData] = useState<FormData>({
     crm: "",
     name: "",
@@ -39,7 +40,12 @@ const DoctorForm = () => {
     address: ""
   });
 
-  const { crm } = useParams<UrlParams>();
+  // const { crm } = useParams<UrlParams>();
+
+  // CREATE
+  const handleCreate = () => {
+
+  }
 
   // READ
   const handleRead = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,12 +56,36 @@ const DoctorForm = () => {
       .then((response) => {
         setDoctor(response.data);
         setFormData(response.data)
-        console.log(response.data)
       })
       .catch((error) => {
         setDoctor(undefined);
       });
-  }  
+  }
+
+  // UPDATE
+  const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    axios.put(`https://my-json-server.typicode.com/guiosouza/fake-api-teste/doctors/${formData.crm}`, formData)
+      .then((response) => {
+        console.log(response.data)
+        alert("Dados salvos!");
+      })
+      .catch((error) => {
+        setDoctor(undefined);
+      });
+  }
+
+  // DELETE
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    axios.delete(`https://my-json-server.typicode.com/guiosouza/fake-api-teste/doctors/${formData.crm}`,)
+      .then((response) => {
+        console.log(response.data)
+        setFormData(response.data)
+      })
+  }
+
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
@@ -71,14 +101,21 @@ const DoctorForm = () => {
       <div className="container search-container">
         <form>
           <div className="form-container">
-            <input
-              type="text"
-              name="crm"
-              value={formData.crm}
-              onChange={handleChange}
-              className="search-input"
-              placeholder="CRM (somente números)"
-            />
+
+            <div className="read-container">
+              <input
+                type="text"
+                name="crm"
+                value={formData.crm}
+                onChange={handleChange}
+                className="search-input"
+                placeholder="CRM (somente números)"
+              />
+              <button onClick={handleRead} id="btnRead" className="btn btn-primary form-button">
+                Buscar
+              </button>
+            </div>
+
             <input
               type="text"
               name="name"
@@ -115,13 +152,13 @@ const DoctorForm = () => {
               id=""
             />
             <div className="btn-container">
-              <button onClick={handleRead} id="btnRead" className="btn btn-primary search-button">
-                Buscar
+              <button onClick={handleCreate} type="submit" id="btnUpdate" className="btn btn-primary form-button">
+                Criar
               </button>
-              <button type="submit" id="btnUpdate" className="btn btn-primary search-button">
-                Salvar alterações
+              <button onClick={handleUpdate} type="submit" id="btnDelete" className="btn btn-primary form-button">
+                Salvar
               </button>
-              <button type="submit" id="btnDelete" className="btn btn-primary search-button">
+              <button onClick={handleDelete} type="submit" id="btnDelete" className="btn btn-primary form-button">
                 Deletar
               </button>
             </div>
@@ -131,11 +168,11 @@ const DoctorForm = () => {
         <h2>Dados do Médico</h2>
         {doctor &&
           <>
-            <ResultCard title="CRM: " description={doctor?.crm} />
-            <ResultCard title="Nome: " description={doctor?.name} />
-            <ResultCard title="Especilidade: " description={doctor?.skill} />
-            <ResultCard title="Telefone: " description={doctor?.phone} />
-            <ResultCard title="Endereço: " description={doctor?.address} />
+            <ResultCard title="CRM: " description={formData?.crm} />
+            <ResultCard title="Nome: " description={formData?.name} />
+            <ResultCard title="Especilidade: " description={formData?.skill} />
+            <ResultCard title="Telefone: " description={formData?.phone} />
+            <ResultCard title="Endereço: " description={formData?.address} />
           </>}
       </div>
     </div>
