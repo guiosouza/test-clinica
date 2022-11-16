@@ -3,7 +3,6 @@ import './styles.css';
 import ResultCard from 'components/ResultCard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Doctor } from 'types/doctor';
 import { BASE_URL } from 'util/resquests';
 import { useParams } from 'react-router-dom';
 
@@ -15,7 +14,21 @@ type FormData = {
   address: string
 }
 
+type Doctor = {
+  crm: string,
+  name: string,
+  skill: string,
+  phone: string,
+  address: string
+}
+
+type UrlParams = {
+  crm : string;
+}
+
 const DoctorForm = () => {
+
+  const [doctor, setDoctor] = useState<Doctor>();
 
   // objet, função que altera o objeto
   const [formData, setFormData] = useState<FormData>({
@@ -26,9 +39,27 @@ const DoctorForm = () => {
     address: ""
   });
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault()
-    console.log("hi")
+  const { crm } = useParams<UrlParams>();
+
+  const handleRead = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    console.log(formData)
+
+    axios.get(`https://my-json-server.typicode.com/guiosouza/fake-api-teste/doctors/${formData.crm}`)
+      .then((response) => {
+        setDoctor(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        setDoctor(undefined);
+      });
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setFormData({ ...formData, [name]: value })
   }
 
 
@@ -41,18 +72,24 @@ const DoctorForm = () => {
             <input
               type="text"
               name="crm"
+              value={formData.crm}
+              onChange={handleChange}
               className="search-input"
               placeholder="CRM (somente números)"
             />
             <input
               type="text"
               name="name"
+              value={formData.name}
+              onChange={handleChange}
               className="search-input"
               placeholder="Nome"
             />
             <input
               type="text"
               name="skill"
+              value={formData.skill}
+              onChange={handleChange}
               className="search-input"
               placeholder="Especialidade"
               id=""
@@ -60,6 +97,8 @@ const DoctorForm = () => {
             <input
               type="text"
               name="phone"
+              value={formData.phone}
+              onChange={handleChange}
               className="search-input"
               placeholder="Telefone (Somente números)"
               id=""
@@ -67,12 +106,14 @@ const DoctorForm = () => {
             <input
               type="text"
               name="address"
+              value={formData.address}
+              onChange={handleChange}
               className="search-input"
               placeholder="Endereço "
               id=""
             />
             <div className="btn-container">
-              <button onClick={handleClick} id="btnRead" className="btn btn-primary search-button">
+              <button onClick={handleRead} id="btnRead" className="btn btn-primary search-button">
                 Buscar
               </button>
               <button type="submit" id="btnUpdate" className="btn btn-primary search-button">
@@ -86,13 +127,14 @@ const DoctorForm = () => {
         </form>
 
         <h2>Dados do Médico</h2>
-        {<>
-          <ResultCard title="CRM: " description="" />
-          <ResultCard title="Nome: " description="" />
-          <ResultCard title="Especilidade: " description="" />
-          <ResultCard title="Telefone: " description="" />
-          <ResultCard title="Endereço: " description="" />
-        </>}
+        {doctor &&
+          <>
+            <ResultCard title="CRM: " description={doctor?.crm} />
+            <ResultCard title="Nome: " description={doctor?.name} />
+            <ResultCard title="Especilidade: " description={doctor?.skill} />
+            <ResultCard title="Telefone: " description={doctor?.phone} />
+            <ResultCard title="Endereço: " description={doctor?.address} />
+          </>}
       </div>
     </div>
   );
